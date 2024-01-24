@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { UserModel } from "../model/User";
-// import bcrypt from "bcrypt"
+import bcrypt from "bcrypt"
 
 type SignUpType = {
     username: string,
@@ -14,14 +14,14 @@ export const signUp = async (req: Request, res: Response) => {
 
         const saltRounds = 10;
 
-        // bcrypt.hash(password, saltRounds, async function (err, hash) {
-        //     try {
-        //         const result = await UserModel.create(req.body);
-        //         console.log(result);
-        //     } catch (error) {
-        //         throw new Error(JSON.stringify(error));
-        //     }
-        // })
+        bcrypt.hash(password, saltRounds, async function (err, hash) {
+            try {
+                const result = await UserModel.create(req.body);
+                console.log(result);
+            } catch (error) {
+                throw new Error(JSON.stringify(error));
+            }
+        })
         return res.status(201).send({ success: true})
     } catch (error: any) {
         if ( error.code === 11000 ) {
@@ -41,8 +41,15 @@ export const signUp = async (req: Request, res: Response) => {
 export const logIn = async (req: Request, res: Response) => {
     const { username, password } = req.body;
     try {
-        const queryText = `SELECT * FROM`;
-        // const find = await pool.query(queryText)
+        const find = await UserModel.findOne({
+            username: username,
+            password: password
+        })
+        if ( !find ) {
+            return res.send('succcess')
+        } else {
+            res.send('login error')
+        }
     } catch (error) {
         console.error(error);
     }
