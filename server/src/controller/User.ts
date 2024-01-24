@@ -2,7 +2,14 @@ import { Request, Response } from "express";
 import { UserModel } from "../model/User";
 import bcrypt from "bcrypt"
 
+
 type SignUpType = {
+    username: string,
+    password: string,
+    avatarImage: string
+}
+
+type UserType = {
     username: string,
     password: string,
     avatarImage: string
@@ -16,10 +23,10 @@ export const signUp = async (req: Request, res: Response) => {
 
         bcrypt.hash(password, saltRounds, async function (err, hash) {
             try {
-                const result = await UserModel.create(req.body);
+                const result = await UserModel.create({ username, password: hash});
                 console.log(result);
             } catch (error) {
-                throw new Error(JSON.stringify(error));
+                throw new Error(JSON.stringify(error))
             }
         })
         return res.status(201).send({ success: true})
@@ -39,17 +46,25 @@ export const signUp = async (req: Request, res: Response) => {
 }
 
 export const logIn = async (req: Request, res: Response) => {
-    const { username, password } = req.body;
     try {
-        const find = await UserModel.findOne({
-            username: username,
-            password: password
+        const { username, password } : { username: string; password: string } = req.body;
+
+        const user: UserType | null = await UserModel.findOne({ username });
+
+        if ( !user ) {
+            return res.status(400).send({ success: false, msg: 'User not found'})
+        } 
+
+        bcrypt.compare(password, user.password, async function (err, result) {
+            if ( !result ) {
+                return res.send({
+                    success: false, 
+                    msg: 'Username or Password incorrect'
+                })
+            } else {
+                return res.send({ success: true})
+            }
         })
-        if ( !find ) {
-            return res.send('succcess')
-        } else {
-            res.send('login error')
-        }
     } catch (error) {
         console.error(error);
     }
