@@ -8,7 +8,7 @@ const menus = [
     title: "Login"
   },
   {
-    link: "sign_up",
+    link: "signUp",
     title: "Sign up"
   }
 ]
