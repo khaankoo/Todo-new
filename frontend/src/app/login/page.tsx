@@ -25,7 +25,7 @@ const Login = () => {
       })
       localStorage.setItem('user', JSON.stringify(data.user));
 
-      if ( data == false ) {
+      if ( data === false ) {
         alert("Username or Password is incorrect");
         return;
       }

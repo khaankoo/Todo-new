@@ -16,7 +16,7 @@ const Aside = () => {
   return (
     <div className='flex flex-col w-[256px] p-3 gap-12'>
         <div className='flex flex-col gap-4'>
-            <div className='flex gap-3'>
+            <div className='flex gap-3 items-center'>
                 <Icon />
                 <h1 className='text-2xl font-semibold'>Todo app</h1>
             </div>
@@ -46,7 +46,7 @@ const Aside = () => {
             </div>
             <div className='flex justify-between w-full items-center'>
                 <button className='flex gap-3 items-center'><Plus /> New list</button>
-                <Menu />
+                <button><Menu /></button>
             </div>
         </div>
     </div>
