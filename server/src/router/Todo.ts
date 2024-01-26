@@ -5,6 +5,6 @@ const todo = express.Router();
 
 todo.route('/').post(createTodo);
 todo.route('/').get(getAllTodo);
-todo.route('/id').get(getTodo).get(getAllTodo)
+todo.route('/id').get(getTodo).get(getAllTodoByUserId)
 
 export { todo }
