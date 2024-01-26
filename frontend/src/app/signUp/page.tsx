@@ -22,7 +22,7 @@ const Sign = () => {
             console.log(user);
             if ( input.password !== input.repassword) {
                 alert("Password and Repassword are not match")
-                // return;
+                return;
             }
             router.push("/login")
         } catch (error) {
