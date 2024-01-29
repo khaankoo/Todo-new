@@ -44,13 +44,12 @@ const Page = () => {
             onChange={(e) => setUserName(e.target.value)}
           />
           <input
-            type="text"
+            type="password"
             placeholder="Password"
             className="border-b p-3 hover:border w-96"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          {/* <input type="text" placeholder="Repassword" className="border-b p-3 hover:border w-96" onChange={(e) => setInput((prev) => ({ ...prev, repassword: e.target.value}))}/> */}
           <button
             className="flex justify-center w-36 text-white p-2 bg-green-800 rounded-md"
             onClick={onSubmit}

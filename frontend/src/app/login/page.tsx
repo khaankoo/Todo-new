@@ -43,7 +43,7 @@ const Login = () => {
             }
           />
           <input
-            type="text"
+            type="password"
             placeholder="Enter your Password"
             className="border-b p-3 hover:border w-96"
             onChange={(e) =>
